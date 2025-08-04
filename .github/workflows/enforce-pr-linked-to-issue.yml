@@ -1,0 +1,17 @@
+name: Enforce PR-Issue Link Policy
+on: [pull_request]
+
+jobs:
+  enforce-pr-issue-link-policy:
+    runs-on: [self-hosted, linux]
+    container: ubuntu:latest
+    permissions:
+        issues: read
+        pull-requests: write
+    steps:
+      - uses: nearform-actions/github-action-check-linked-issues@v1
+        id: check-linked-issues
+        with:
+          exclude-branches: "release/**, dependabot/**"
+          comment: false
+

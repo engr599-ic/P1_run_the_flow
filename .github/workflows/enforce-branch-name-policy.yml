@@ -1,0 +1,15 @@
+name: Enforce Branch Name Policy
+on: [pull_request]
+
+jobs:
+  enforce-branch-name-policy:
+    runs-on: [self-hosted, linux]
+    container: ubuntu:latest
+    steps:
+      - uses: deepakputhraya/action-branch-name@master
+        with:
+          regex: '([a-z])+\/([a-z])+'
+          allowed_prefixes: 'bugfix,doc,feature,refactor,release,test'
+          ignore: master,main
+          min_length: 5
+          max_length: 128
