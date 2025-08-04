@@ -1,0 +1,5 @@
+*.cmd*
+*.log*
+fv/
+dbs/*
+postsynth_picorv32.v
