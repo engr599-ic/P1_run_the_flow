@@ -1,3 +1,3 @@
 
 set_units -time ns
-create_clock -name clk -period 20 -waveform {0 10} [get_ports {clk}]
+create_clock -name clk -period 10 -waveform {0 5} [get_ports {clk}]

@@ -43,6 +43,6 @@ syn_map
 write_db dbs/syn_map.db
 
 syn_opt
-write_db -common dbs/syn_opt.db
+write_db -common -all_root_attributes dbs/syn_opt.db
 
 write_hdl > postsynth_$TOP_MODULE.v
