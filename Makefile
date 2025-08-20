@@ -5,8 +5,10 @@ setup:
 
 synth:
 	genus -batch -files synthesis.tcl
+
 pnr:
 	innovus -stylus -batch -files pnr.tcl
+
 clean:
 	rm -rf dbs/*
 	rm *.log*

@@ -17,7 +17,12 @@ set ALL_LEFS [glob -nocomplain -type f $STDCELL_DIR/**/*.lef]
 # .magic.lefs aren't supported by Cadence and the diode lefs are incorrect.
 set FILTERED_LEFS {} 
 foreach file $ALL_LEFS {
-	if {![string match "*.magic.lef" $file] && ![string match "*diode*" $file]} {
+	if {![string match "*.magic.lef" $file] && \
+        ![string match "*diode*" $file] && \
+        ![string match "*tapmet1*" $file] && \
+        ![string match "*tapvgnd*" $file] && \
+        ![string match "*tapvpwrvgnd*" $file]  \
+        } {
 		lappend FILTERED_LEFS $file
 	}
 }
@@ -45,4 +50,4 @@ write_db dbs/syn_map.db
 syn_opt
 write_db -common -all_root_attributes dbs/syn_opt.db
 
-write_hdl > postsynth_$TOP_MODULE.v
+write_hdl > $TOP_MODULE.vg
