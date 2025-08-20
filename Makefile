@@ -1,3 +1,6 @@
+setup: 
+	git submodule update --init
+
 synth:
 	genus -batch -files synthesis.tcl
 pnr:
