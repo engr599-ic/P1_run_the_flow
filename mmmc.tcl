@@ -1,18 +1,18 @@
 create_library_set -name ss_m40_lib\
    -timing\
-    [list /pdks/google/skywater-pdk/libraries/sky130_fd_sc_hs/latest/timing/sky130_fd_sc_hs__ss_n40C_1v60.lib]
+    [list /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/timing/sky130_fd_sc_ms__ss_n40C_1v60.lib]
 create_library_set -name tt_25_lib\
    -timing\
-    [list /pdks/google/skywater-pdk/libraries/sky130_fd_sc_hs/latest/timing/sky130_fd_sc_hs__tt_025C_1v80.lib]
+    [list /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/timing/sky130_fd_sc_ms__tt_025C_1v80.lib]
 create_library_set -name ff_150_lib\
    -timing\
-    [list /pdks/google/skywater-pdk/libraries/sky130_fd_sc_hs/latest/timing/sky130_fd_sc_hs__ff_150C_1v95.lib]
+    [list /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/timing/sky130_fd_sc_ms__ff_150C_1v95.lib]
 create_library_set -name ff_m40_lib\
    -timing\
-    [list /pdks/google/skywater-pdk/libraries/sky130_fd_sc_hs/latest/timing/sky130_fd_sc_hs__ff_n40C_1v95.lib] 
+    [list /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/timing/sky130_fd_sc_ms__ff_n40C_1v95.lib] 
 create_library_set -name ss_150_lib\
    -timing\
-    [list /pdks/google/skywater-pdk/libraries/sky130_fd_sc_hs/latest/timing/sky130_fd_sc_hs__ss_150C_1v60.lib] 
+    [list /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/timing/sky130_fd_sc_ms__ss_150C_1v60.lib] 
 create_timing_condition -name ff_150_cond\
    -library_sets [list ff_150_lib]
 create_timing_condition -name ss_m40_cond\
@@ -106,9 +106,11 @@ create_delay_corner -name ff_m40_delay\
 create_constraint_mode -name func\
    -sdc_files\
     [list functional.sdc]
-create_analysis_view -name ss_150_view -constraint_mode func -delay_corner ss_150_delay -latency_file /home/jackclar/git/riscv-s130/flowtool_setup/PnR/picorv32.module/dbs/postroute.enc_2/mmmc/views/ss_150_view/latency.sdc.gz
-create_analysis_view -name tt_25_view -constraint_mode func -delay_corner tt_25_delay -latency_file /home/jackclar/git/riscv-s130/flowtool_setup/PnR/picorv32.module/dbs/postroute.enc_2/mmmc/views/tt_25_view/latency.sdc.gz
-create_analysis_view -name ff_m40_view -constraint_mode func -delay_corner ff_m40_delay -latency_file /home/jackclar/git/riscv-s130/flowtool_setup/PnR/picorv32.module/dbs/postroute.enc_2/mmmc/views/ff_m40_view/latency.sdc.gz
-create_analysis_view -name ff_150_view -constraint_mode func -delay_corner ff_150_delay -latency_file /home/jackclar/git/riscv-s130/flowtool_setup/PnR/picorv32.module/dbs/postroute.enc_2/mmmc/views/ff_150_view/latency.sdc.gz
-create_analysis_view -name ss_m40_view -constraint_mode func -delay_corner ss_m40_delay -latency_file /home/jackclar/git/riscv-s130/flowtool_setup/PnR/picorv32.module/dbs/postroute.enc_2/mmmc/views/ss_m40_view/latency.sdc.gz
+
+create_analysis_view -name ss_150_view -constraint_mode func -delay_corner ss_150_delay 
+create_analysis_view -name tt_25_view -constraint_mode func -delay_corner tt_25_delay 
+create_analysis_view -name ff_m40_view -constraint_mode func -delay_corner ff_m40_delay
+create_analysis_view -name ff_150_view -constraint_mode func -delay_corner ff_150_delay 
+create_analysis_view -name ss_m40_view -constraint_mode func -delay_corner ss_m40_delay 
+
 set_analysis_view -setup [list tt_25_view ss_m40_view ss_150_view] -hold [list tt_25_view ff_150_view ff_m40_view]

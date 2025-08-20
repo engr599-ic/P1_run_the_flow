@@ -13,7 +13,7 @@ create_clock clk -period 5
 
 set_db place_global_place_io_pins true
 place_opt_design
-add_fillers -base_cells { sky130_fd_sc_hs__fill_1 sky130_fd_sc_hs__fi l_2 sky130_fd_sc_hs__fill_4 sky130_fd_sc_hs__fill_8 }
+add_fillers -base_cells { sky130_fd_sc_ms__fill_1 sky130_fd_sc_ms__fi l_2 sky130_fd_sc_ms__fill_4 sky130_fd_sc_ms__fill_8 }
 write_db -common dbs/place.db
 
 ccopt_design

@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 setup: 
 	git submodule update --init
 
