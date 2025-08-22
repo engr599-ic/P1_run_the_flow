@@ -30,7 +30,14 @@ set FILTERED_LEFS [split $FILTERED_LEFS]
 
 set_db lib_search_path $LIB_DIR
 
+# Set synthesis tool effort
+set_db syn_generic_effort medium
+set_db syn_map_effort medium
+
 set_multi_cpu_usage -local_cpu 4
+
+# Disallow tool from using scan flops for non scan chain uses
+set_db use_scan_seqs_for_non_dft false
 
 read_mmmc $MMMC_FILE
 read_hdl $HDL_FILES
@@ -50,4 +57,4 @@ write_db dbs/syn_map.db
 syn_opt
 write_db -common -all_root_attributes dbs/syn_opt.db
 
-write_hdl > $TOP_MODULE.vg
+write_hdl > postsynth.vg
