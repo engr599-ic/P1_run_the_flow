@@ -1,7 +1,7 @@
 set_multi_cpu_usage -remote_host 1 -local_cpu 4
 read_db dbs/syn_opt.db/
 
-set_design_mode -process 130
+#set_design_mode -process "130"
 
 create_net -physical -name VPWR -power
 create_net -physical -name VGND -ground
@@ -29,12 +29,18 @@ connect_global_net VGND -type pg_pin -pin_base_name VNB -all
 
 add_tracks
 
+add_stripes -nets {VPWR VGND} -layer rdl -direction vertical -width 12 -spacing 12 -number_of_sets 3 -extend_to design_boundary -create_pins 1 -start_from left start_offset 12 -stop_offset 12 -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit rdl -pad_core_ring_bottom_layer_limit li1 -block_ring_top_layer_limit rdl -block_ring_bottom_layer_limit li1 -use_wire_group 0 -snap_wire_center_to_grid none
+
+add_stripes -nets {VPWR VGND} -layer rdl -direction vertical -width 12 -spacing 12 -number_of_sets 3 -extend_to design_boundary -create_pins 1 -start_from left -start_offset 12 -stop_offset 12 -switch_layer_over_obs false -max_same_layer_jog_length 2 -pad_core_ring_top_layer_limit rdl -pad_core_ring_bottom_layer_limit li1 -block_ring_top_layer_limit rdl -block_ring_bottom_layer_limit li1 -use_wire_group 0 -snap_wire_center_to_grid none
+
 route_special -connect core_pin \
    -block_pin_target nearest_target \
    -core_pin_target first_after_row_end \
    -allow_jogging 1 \
    -nets {VPWR VGND} \
    -allow_layer_change 1
+
+add_well_taps -cell sky130_fd_sc_ms__tap_1 -cell_interval 50
 
 write_db -common dbs/pnr_init.db
 
@@ -45,7 +51,6 @@ add_tieoffs
 write_db -common dbs/place.db
 
 clock_opt_design
-add_fillers -base_cells {sky130_fd_sc_ms__fill_8 sky130_fd_sc_ms__fill_4 sky130_fd_sc_ms__fill_2 sky130_fd_sc_ms__fill_1}
 write_db -common dbs/ccopt.db
 
 
@@ -59,6 +64,7 @@ extract_rc
 opt_signoff -all
 report_timing -late
 report_timing -early
+add_fillers -base_cells {sky130_fd_sc_ms__fill_8 sky130_fd_sc_ms__fill_4 sky130_fd_sc_ms__fill_2 sky130_fd_sc_ms__fill_1} -fix_drc
 write_db -common dbs/signoff.db
 
 write_netlist -include_pg -omit_floating_ports -update_tie_connections post_pnr_lvs.vg
