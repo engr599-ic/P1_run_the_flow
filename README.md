@@ -1,4 +1,4 @@
-# P1: Run the Flow!
+# Place and Route Flow
 
 Version: 2025.0
 ---
@@ -64,7 +64,7 @@ The synthesis and place and route tools will attempt to meet this timing constra
 
 Timing reports can be found in the `RPT_final` directory as well as the `timingReports` directory.
 
-## MMMC File
+### MMMC File
 
 An MMMC file (multi-mode multi-corner) file creates all of the corner information used by the synthesis and pnr tools. 
 This file sets the following:
