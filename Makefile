@@ -9,7 +9,14 @@ synth:
 pnr:
 	innovus -stylus -batch -files pnr.tcl
 
+all: synth pnr
+
 clean:
 	rm -rf dbs/*
-	rm *.log*
-	rm *.cmd*
+	rm -f *.log*
+	rm -f *.cmd*
+	rm -rf RPT_final*
+	rm -rf timingReports
+	rm -rf fv
+	rm -rf client_log
+	rm -f *.vg
