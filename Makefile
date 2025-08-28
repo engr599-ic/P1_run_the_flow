@@ -10,6 +10,9 @@ pnr:
 	innovus -stylus -batch -files pnr.tcl
 
 clean:
-	rm -rf dbs/*
-	rm *.log*
-	rm *.cmd*
+	rm -rf dbs* fv
+	rm -rf *.log*
+	rm -rf *.cmd*
+	rm -rf innovus_temp_*
+	rm -rf timingReports
+	rm -rf *.vg
