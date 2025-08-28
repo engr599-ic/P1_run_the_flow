@@ -95,3 +95,27 @@ This file sets the following:
     - Links SDC files to specific Corners
   - Delay Corners
   - Analysis Views
+
+# Getting Help
+
+Both tools (genus and innovus) have a gui option that can be enabled by adding the `-gui` flag.  
+
+For documentation on available commands, both tools (in GUI mode) also have a Help dropdown that includes the user guide.  
+
+# Your Turn
+
+Now that you know the basic flow, it's time to start tweaking for improved PPA.  Your task is customize this flow twice, once to optimize performance and once to optimize for area.  
+
+## Optimize for Performance
+
+By default, your PICORV core is targetting a 100ns (10MHz) clock.  Your task is to see how high you can push the frequency without causing setup/hold violations on any of the process corners.  
+
+Start by modifying this line in the `functional.sdc` Constraint file: 
+`create_clock -name clk -period 100 -waveform {0 50} [get_ports {clk}]`
+
+You will likely need to optimize both the `synthesis.tcl` and `pnr.tcl` to achieve the highest performance. 
+
+## Optimize for Area
+
+Next Time...
+
