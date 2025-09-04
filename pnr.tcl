@@ -1,4 +1,4 @@
-set_multi_cpu_usage -remote_host 1 -local_cpu 4
+set_multi_cpu_usage -remote_host 4 -local_cpu 4
 read_db dbs/syn_opt.db/
 
 #set_design_mode -process "130"
@@ -25,7 +25,6 @@ connect_global_net VPWR -type pg_pin -pin_base_name VPB -all
 connect_global_net VGND -type pg_pin -pin_base_name VGND -all
 connect_global_net VGND -type net -net_base_name VGND -all
 connect_global_net VGND -type pg_pin -pin_base_name VNB -all
-
 
 add_tracks
 
@@ -54,7 +53,6 @@ clock_opt_design
 add_fillers -base_cells {sky130_fd_sc_ms__fill_8 sky130_fd_sc_ms__fill_4 sky130_fd_sc_ms__fill_2 sky130_fd_sc_ms__fill_1}
 write_db -common dbs/ccopt.db
 
-
 route_opt_design
 time_design -post_route
 time_design -post_route -hold
@@ -62,9 +60,7 @@ opt_design -post_route
 write_db -common dbs/route.db
 
 extract_rc
-opt_signoff -all
-report_timing -late
-report_timing -early
+opt_signoff -all -report_dir timing_report
 write_db -common dbs/signoff.db
 
 write_netlist -include_pg -omit_floating_ports -update_tie_connections post_pnr_lvs.vg
