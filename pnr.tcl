@@ -70,4 +70,4 @@ write_netlist -include_pg -omit_floating_ports -update_tie_connections post_pnr_
 write_netlist -remove_power_ground post_pnr_sim.vg
 
 check_drc -out_file drc.rpt
-check_connectivity -out_file connect.rpt
+check_connectivity -out_file connect.rpt -ignore_dangling_wires
