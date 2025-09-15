@@ -1,6 +1,11 @@
 set_multi_cpu_usage -remote_host 4 -local_cpu 4
 read_db dbs/syn_opt.db/
 
+#enable this to update timing constrints for just pnr
+#set_interactive_constraint_modes {func}
+#set_units -time ns
+#create_clock -name clk -period 10 [get_ports {clk}]
+
 #set_design_mode -process "130"
 
 create_net -physical -name VPWR -power
@@ -21,10 +26,8 @@ create_floorplan -stdcell_density_size {1.0 0.5 2 2 2 2}
 # Ensure power pins are connected to power nets
 connect_global_net VPWR -type pg_pin -pin_base_name VPWR -all
 connect_global_net VPWR -type net -net_base_name VPWR -all
-connect_global_net VPWR -type pg_pin -pin_base_name VPB -all
 connect_global_net VGND -type pg_pin -pin_base_name VGND -all
 connect_global_net VGND -type net -net_base_name VGND -all
-connect_global_net VGND -type pg_pin -pin_base_name VNB -all
 
 add_tracks
 
@@ -39,7 +42,7 @@ route_special -connect core_pin \
    -nets {VPWR VGND} \
    -allow_layer_change 1
 
-add_well_taps -cell sky130_fd_sc_ms__tap_1 -cell_interval 50
+add_well_taps -cell sky130_fd_sc_ms__tapvpwrvgnd_1 -cell_interval 50
 
 write_db -common dbs/pnr_init.db
 
@@ -65,3 +68,6 @@ write_db -common dbs/signoff.db
 
 write_netlist -include_pg -omit_floating_ports -update_tie_connections post_pnr_lvs.vg
 write_netlist -remove_power_ground post_pnr_sim.vg
+
+check_drc -out_file drc.rpt
+check_connectivity -out_file connect.rpt
