@@ -26,8 +26,11 @@ create_floorplan -stdcell_density_size {1.0 0.5 2 2 2 2}
 # Ensure power pins are connected to power nets
 connect_global_net VPWR -type pg_pin -pin_base_name VPWR -all
 connect_global_net VPWR -type net -net_base_name VPWR -all
+connect_global_net VPWR -type pg_pin -pin_base_name VPB -all
 connect_global_net VGND -type pg_pin -pin_base_name VGND -all
 connect_global_net VGND -type net -net_base_name VGND -all
+connect_global_net VGND -type pg_pin -pin_base_name VNB -all
+
 
 add_tracks
 
