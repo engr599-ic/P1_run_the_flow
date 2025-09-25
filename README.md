@@ -126,7 +126,10 @@ You will likely need to optimize both the `synthesis.tcl` and `pnr.tcl` to achie
 
 Now it's time to optimize for minimal overal layout area.  Your task is to minimize the overall area without causing any DRC (Design Rule Check)/ connectivity errors.  These frequently occur when the router tries to squeeze too many routes (signal wires) into a given area because it is too compact.  
 
-We suggest starting by modifying the `create_floorplan` command in `pnr.tcl`.  You will likely need to update `synthesis.tcl` also to achieve the best result.  
+We suggest starting by modifying the `create_floorplan` command in `pnr.tcl`.  You will likely need to update `synthesis.tcl` and/or the RTL also to achieve the best result.  
+
+Past classes have found it very difficult to use the high-density standard cell library.  
+
 
 ## Evaluating success
 
