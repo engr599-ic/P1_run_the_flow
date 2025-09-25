@@ -74,3 +74,6 @@ write_netlist -remove_power_ground post_pnr_sim.vg
 
 check_drc -out_file drc.rpt
 check_connectivity -out_file connect.rpt -ignore_dangling_wires
+
+get_db current_design .bbox.area
+echo [get_db current_design .bbox.area] > area.rpt
