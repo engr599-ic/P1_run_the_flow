@@ -1,8 +1,11 @@
-<<<<<<< HEAD
-set_multi_cpu_usage -remote_host 1 -local_cpu 12
-=======
+
+set PDK_DIR /l/sky130_release_0.0.1
+set STDCELL_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/cells/
+set IO_DIR /l/open_pdks/sky130/custom/sky130_fd_io/
+set OTHER_IO_DIR /l/skywater-pdk/libraries/sky130_fd_io/latest/cells/
+
 set_multi_cpu_usage -remote_host 4 -local_cpu 4
->>>>>>> origin/main
+
 read_db dbs/syn_opt.db/
 
 #enable this to update timing constrints for just pnr
@@ -55,13 +58,13 @@ write_db -common dbs/pnr_init.db
 
 set_db place_global_place_io_pins true
 
+# Place the standard cells
 place_opt_design
 add_tieoffs
 write_db -common dbs/place.db
 
 # Run Clock Tree Synthesis (CTS)
 clock_opt_design
-add_fillers -base_cells {sky130_fd_sc_ms__fill_8 sky130_fd_sc_ms__fill_4 sky130_fd_sc_ms__fill_2 sky130_fd_sc_ms__fill_1}
 write_db -common dbs/ccopt.db
 
 # Route the signal nets
@@ -70,6 +73,9 @@ time_design -post_route
 time_design -post_route -hold
 opt_design -post_route
 write_db -common dbs/route.db
+
+# add filler cells
+add_fillers -base_cells {sky130_fd_sc_ms__fill_8 sky130_fd_sc_ms__fill_4 sky130_fd_sc_ms__fill_2 sky130_fd_sc_ms__fill_1}
 
 # Extract a resistor capacitor model of the chip
 extract_rc
