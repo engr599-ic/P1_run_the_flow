@@ -9,7 +9,10 @@ synth:
 pnr:
 	innovus -stylus -batch -files pnr.tcl
 
-all: synth pnr
+check_timing:
+	./check_timing.sh
+
+all: synth pnr check_timing
 
 clean:
 	rm -rf dbs* fv
@@ -17,6 +20,7 @@ clean:
 	rm -rf *.cmd*
 	rm -rf innovus_temp_*
 	rm -rf timingReports
+	rm -rf timing_report
 	rm -rf *.vg
 	rm -rf RPT_final*
 	rm -rf client_log

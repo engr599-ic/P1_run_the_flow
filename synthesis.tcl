@@ -20,8 +20,7 @@ foreach file $ALL_LEFS {
 	if {![string match "*.magic.lef" $file] && \
         ![string match "*diode*" $file] && \
         ![string match "*tapmet1*" $file] && \
-        ![string match "*tapvgnd*" $file] && \
-        ![string match "*tapvpwrvgnd*" $file]  \
+        ![string match "*tapvgnd*" $file] \
         } {
 		lappend FILTERED_LEFS $file
 	}
