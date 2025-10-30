@@ -90,34 +90,22 @@ check_connectivity -out_file connect.rpt -ignore_dangling_wires
 get_db current_design .bbox.area > area.rpt
 
 
-set STDCELL_GDS [glob -nocomplain -type f $STDCELL_DIR/**/*.gds]
 set IO_GDS [glob -nocomplain -type f $IO_DIR/gds/*.gds]
 set OTHER_IO_GDS [glob -nocomplain -type f $OTHER_IO_DIR/**/*.gds]
-
-set ALL_GDS [list {*}$STDCELL_GDS {*}$IO_GDS {*}$OTHER_IO_GDS]
-
-# Remove any .magic.lef files and the diode lefs.
-# .magic.lefs aren't supported by Cadence and the diode lefs are incorrect.
-set FILTERED_GDS {} 
-foreach file $ALL_GDS {
-	if {![string match "*.magic.*" $file] && \
-        ![string match "*diode*" $file] && \
-        ![string match "*tapmet1*" $file] && \
-        ![string match "*sky130_fd_io__signal_5_sym_hv_local_5term*" $file] && \
-        ![string match "*tapvgnd*" $file] \
-        } {
-		lappend FILTERED_GDS $file
-	}
-}
-set FILTERED_GDS [split $FILTERED_GDS]
-lappend FILTERED_GDS ./sram-pnr/sram.gds.gz
 
 
 set DESIGN_NAME [get_db current_design .name]
 set PDK_DIR /l/sky130_release_0.1.0
-set STDCELL_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/cells/
 
-set STDCELL_GDS [glob -nocomplain -type f $STDCELL_DIR/**/*.gds]
+set STDCELL_MS_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/cells/
+set STDCELL_HS_DIR /l/skywater-pdk/libraries/sky130_fd_sc_hs/latest/cells/
+
+set STDCELL_GDS [glob -nocomplain -type f $STDCELL_MS_DIR/**/*.gds]
+lappend STDCELL_GDS [glob -nocomplain -type f $STDCELL_HS_DIR/**/*.gds]
+
+#set SRAM_GDS ./sram-pnr/sram.gds.gz
+#set ALL_GDS [list {*}$STDCELL_GDS {*}$SRAM_GDS ]
+
 write_stream ${DESIGN_NAME}.gds.gz \
     -map_file ./sky130_stream.mapFile \
     -lib_name DesignLib \
