@@ -1,9 +1,4 @@
 
-set PDK_DIR /l/sky130_release_0.0.1
-set STDCELL_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/cells/
-set IO_DIR /l/open_pdks/sky130/custom/sky130_fd_io/
-set OTHER_IO_DIR /l/skywater-pdk/libraries/sky130_fd_io/latest/cells/
-
 set_multi_cpu_usage -remote_host 4 -local_cpu 4
 
 read_db dbs/syn_opt.db/
@@ -118,9 +113,13 @@ set FILTERED_GDS [split $FILTERED_GDS]
 lappend FILTERED_GDS ./sram-pnr/sram.gds.gz
 
 
-write_stream out.gds.gz \
-    -map_file $PDK_DIR/libs/sky130_fd_pr_main/sky130_fd_pr_main.layermap \
-    -lib_name DesignLib \
-    -merge $FILTERED_GDS \
-    -unit 1000 -mode all
+set DESIGN_NAME [get_db current_design .name]
+set PDK_DIR /l/sky130_release_0.1.0
+set STDCELL_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/cells/
 
+set STDCELL_GDS [glob -nocomplain -type f $STDCELL_DIR/**/*.gds]
+write_stream ${DESIGN_NAME}.gds.gz \
+    -map_file ./sky130_stream.mapFile \
+    -lib_name DesignLib \
+    -merge $STDCELL_GDS \
+    -unit 1000 -mode all
