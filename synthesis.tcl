@@ -9,7 +9,8 @@ set MMMC_FILE ./mmmc.tcl
 set PDK_DIR /l/skywater-pdk/libraries/sky130_fd_pr/latest/
 set STDCELL_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/cells/
 set LIB_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/timing/
-set TECH_LEF /l/skywater-pdk/libraries/sky130_fd_pr/latest/tech/sky130_fd_pr.tlef
+#set TECH_LEF /l/skywater-pdk/libraries/sky130_fd_pr/latest/tech/sky130_fd_pr.tlef
+set TECH_LEF ./sky130_fd_pr.tlef
 
 set ALL_LEFS [glob -nocomplain -type f $STDCELL_DIR/**/*.lef]
 
