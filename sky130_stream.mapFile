@@ -12,17 +12,23 @@
 #licon   pin        66     58     
 #licon   lefpin     66     58
 
-#li1     net        67     20             
-#li1     spnet      67     20
-#li1     pin        67     16     
-#li1     lefpin     67     16
-#li1     blockage   67	  10
-#li1     text       67     5
+#andrew:  fixed and re-enabled to fix LVS issues
+li1     net        67     20             
+li1     spnet      67     20
+li1     lefobs     67     20
+li1     via        67     20
+li1     pin        67     16     
+li1     lefpin     67     16
+li1     blockage   67	  10
+li1     text       67     5
+li1     li1/pin    67     5
 
-#mcon    net        67     44   
-#mcon    spnet      67     44
-#mcon    pin        67     58     
-#mcon    lefpin     67     58
+mcon    net        67     44   
+mcon    spnet      67     44
+mcon    via        67     44
+mcon    lefobs     67     44
+mcon    pin        67     48     
+mcon    lefpin     67     48
 
 met1    net        68     20             
 met1    spnet      68     20
