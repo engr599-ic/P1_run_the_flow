@@ -7,7 +7,6 @@ set -e
 SCRIPT_PATH="$(readlink -f "$0")"
 # Get the directory of the script
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
-WORK_DIR=${SCRIPT_DIR}/virtuoso
 
 TOP_MODULE=$(grep 'set TOP_MODULE' synthesis.tcl  | awk '{print $3}')
 echo "Running on TOP_MODULE: ${TOP_MODULE}"
@@ -18,9 +17,6 @@ if ! [ -e "$GDS_PATH" ]; then
   exit 1
 fi
 
-
-mkdir -p ${WORK_DIR}
-pushd ${WORK_DIR}
 
 
 if ! [ -e cds.lib ]; then
@@ -35,13 +31,8 @@ fi
 
 echo "streaming in gds"
 strmin \
-    -library  "${TOP_MODULE}"\
+    -library  "${TOP_MODULE}_virtuoso_library"\
     -strmFile "${GDS_PATH}"\
     -attachTechFileOfLib 'sky130_fd_pr_main' \
-    -logFile "${WORK_DIR}/strmIn.log"
-
-popd
-
-
-
+    -logFile "./strmIn.log"
 
