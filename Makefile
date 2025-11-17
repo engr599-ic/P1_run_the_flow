@@ -25,3 +25,4 @@ clean:
 	rm -rf RPT_final*
 	rm -rf client_log
 	rm -f *.vg
+	rm -f *.rpt*

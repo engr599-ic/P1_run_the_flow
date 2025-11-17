@@ -22,7 +22,7 @@ if ! [ -e "$GDS_PATH" ]; then
   exit 1
 fi
 
-NETLIST_FILE=${SCRIPT_DIR}/post_pnr_lvs.vg
+NETLIST_FILE=${SCRIPT_DIR}/${TOP_MODULE}_post_pnr_lvs.vg
 if ! [ -e "$NETLIST_FILE" ]; then
   echo "ERROR:  ${NETLIST_FILE} does not exist."
   exit 1

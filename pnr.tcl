@@ -3,6 +3,8 @@ set_multi_cpu_usage -remote_host 4 -local_cpu 4
 
 read_db dbs/syn_opt.db/
 
+set DESIGN_NAME [get_db current_design .name]
+
 #enable this to update timing constrints for just pnr
 #set_interactive_constraint_modes {func}
 #set_units -time ns
@@ -80,8 +82,8 @@ report_timing -early
 write_db -common dbs/signoff.db
 
 # Write out a post PnR netlist for simulation and LVS
-write_netlist -include_pg -omit_floating_ports -update_tie_connections post_pnr_lvs.vg
-write_netlist -remove_power_ground post_pnr_sim.vg
+write_netlist -exclude_leaf_cells -include_pg -omit_floating_ports -update_tie_connections ${DESIGN_NAME}_post_pnr_lvs.vg
+write_netlist -remove_power_ground ${DESIGN_NAME}_post_pnr_sim.vg
 
 # Write a DRC report
 check_drc -out_file drc.rpt
@@ -89,12 +91,13 @@ check_connectivity -out_file connect.rpt -ignore_dangling_wires
 
 get_db current_design .bbox.area > area.rpt
 
+set IO_DIR /l/open_pdks/sky130/custom/sky130_fd_io/
+set OTHER_IO_DIR /l/skywater-pdk/libraries/sky130_fd_io/latest/cells/
 
 set IO_GDS [glob -nocomplain -type f $IO_DIR/gds/*.gds]
 set OTHER_IO_GDS [glob -nocomplain -type f $OTHER_IO_DIR/**/*.gds]
 
 
-set DESIGN_NAME [get_db current_design .name]
 set PDK_DIR /l/sky130_release_0.1.0
 
 set STDCELL_MS_DIR /l/skywater-pdk/libraries/sky130_fd_sc_ms/latest/cells/
