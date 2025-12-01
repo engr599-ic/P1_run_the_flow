@@ -6,13 +6,16 @@ setup:
 synth:
 	genus -batch -files synthesis.tcl
 
+floorplan:
+	innovus -stylus -batch -files floorplan.tcl
+
 pnr:
 	innovus -stylus -batch -files pnr.tcl
 
 check_timing:
 	./check_timing.sh
 
-all: synth pnr check_timing
+all: synth floorplan pnr check_timing
 
 clean:
 	rm -rf dbs* fv
