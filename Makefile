@@ -13,6 +13,9 @@ pnr:
 	innovus -stylus -batch -files pnr.tcl -no_logv -log "logs/pnr.log logs/pnr.cmd"
 
 run_checks:
+	./run_virtuoso_import.sh
+	./run_pegasus_drc.sh
+	./run_pegasus_lvs.sh
 	./run_checks.sh
 
 all: synth floorplan pnr run_checks
