@@ -4,18 +4,18 @@ setup:
 	git submodule update --init
 
 synth:
-	genus -batch -files synthesis.tcl
+	genus -batch -files synthesis.tcl -log "logs/synth.log logs/synth.cmd"
 
 floorplan:
-	innovus -stylus -batch -files floorplan.tcl
+	innovus -stylus -batch -files floorplan.tcl -no_logv -log "logs/floorplan.log logs/floorplan.cmd"
 
 pnr:
-	innovus -stylus -batch -files pnr.tcl
+	innovus -stylus -batch -files pnr.tcl -no_logv -log "logs/pnr.log logs/pnr.cmd"
 
-check_timing:
-	./check_timing.sh
+run_checks:
+	./run_checks.sh
 
-all: synth floorplan pnr check_timing
+all: synth floorplan pnr run_checks
 
 clean:
 	rm -rf dbs* fv
